@@ -1,3 +1,0 @@
-# This file exists for the build-conda-package github action.
-empty:
-  - 0
