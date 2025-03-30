@@ -12,4 +12,16 @@ main
 *.swp
 cmake_uninstall.cmake
 CTestTestfile.cmake
-install
+installbuild
+CMakeFiles
+Makefile
+CMakeCache.txt
+cmake_install.cmake
+.vscode
+*.swp
+evpfft_*
+hdf5
+heffte
+kokkos
+MATAR
+lib
