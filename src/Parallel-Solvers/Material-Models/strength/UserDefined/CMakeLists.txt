@@ -1,4 +1,0 @@
-set(SRC_Files UserDefinedStrengthModel.cpp)
-add_library(UserDefinedStrengthModel OBJECT ${SRC_Files})
-target_include_directories(UserDefinedStrengthModel PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
-target_link_libraries(UserDefinedStrengthModel Elements)

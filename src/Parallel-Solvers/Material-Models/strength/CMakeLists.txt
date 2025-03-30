@@ -1,6 +1,0 @@
-add_subdirectory(EVP)
-add_subdirectory(EVPFFT)
-add_subdirectory(LSEVPFFT)
-add_subdirectory(LSNPEVPFFT)
-add_subdirectory(UserDefined)
-add_subdirectory(VUMAT)
