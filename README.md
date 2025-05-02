@@ -12,28 +12,6 @@
 **Fierro** supports a range of published multi-step time integration methods. The code has an explicit multi-step Runge Kutta time integration method. Implicit time integration methods can be implemented in **Fierro**.
 
 # Usage
-## Anaconda
-The recommended way to use **Fierro** is through the provided Anaconda package. To use the anaconda package, follow the steps for your platform to install [anaconda](https://docs.anaconda.com/free/anaconda/install/index.html)/[miniconda](https://docs.conda.io/en/latest/miniconda.html)/[mamba](https://mamba.readthedocs.io/en/latest/installation.html). 
-
-Open a terminal on your machine and go to a folder where you want to run the **Fierro** code.  Then create and activate an Anaconda environment by typing:  
-```
-conda create -n FierroCode
-conda activate FierroCode  
-```
-In this example, the enviroment is called FierroCode, but any name can be used.  In some cases, the text to activate an enviroment is `source activate FierroCode`.  Likewise, if an enviroment already exists, then just activate the desired environment.  
-
-To install the finite element physics solvers in **Fierro**, please type within the activated Anaconda environment:
-```
-conda install -c conda-forge -c fierromechanics fierro-fe-cpu
-```
-The EVPFFT physics solver in **Fierro** can be installed by typing:
-```
-conda install -c conda-forge -c fierromechanics fierro-evpfft-cpu
-```
-A GUI is offered, it can be installed by typing:
-```
-conda install -c conda-forge -c fierromechanics fierro-gui
-```
 
 After installing the finite element solvers, it gives you access to `fierro-mesh-builder`,`fierro-parallel-explicit`,`fierro-parallel-implicit`, and the `fierro-voxelizer` executables. These can be run by calling the appropriate executable with the desired input. For example, to call the parallel explicit hydrodynamics solver, use the following command:
 ```
@@ -183,54 +161,8 @@ EVPFFT depends on the following to build:
 
 To make it easy to build EVPFFT, we have included `scripts/build_scripts/build_evpfft.sh` which when executed will download and install all required dependencies and EVPFFT. It is important to note that EVPFFT depends on three main libraries which can be time consuming to download from scratch namely, MPI, FFTW (MPI version), and HDF5 (MPI version). Therefore the user is advised to download these packages themselves either using `sudo apt install` of Anaconda package manager.
 
-## Building EVPFFT with Anaconda
-It is advised to use Anaconda package manager to build EVPFFT as follows:
 
-1. Create an environment and activate:
-```
-conda create --name evpfftEnv
-conda activate evpfftEnv
-```
-
-2. Install needed packages:
-```
-conda install cxx-compiler -c conda-forge
-conda install cmake
-conda install "fftw=*=mpi_openmpi*" -c conda-forge
-conda install "hdf5=*=mpi_openmpi*" -c conda-forge
-conda install openmpi-mpicxx -c conda-forge 
-```
-
-3. Run the build script as:
-```
-source build_evpfft.sh --help
-```
-
-Which outputs:
-
-```
-Usage: source build_evpfft.sh [OPTION]
-Required arguments:
-  --heffte_build_type=<fftw|cufft|rocfft>
-  --kokkos_build_type=<serial|openmp|pthreads|cuda|hip>
-
-Optional arguments:
-  --build_fftw: builds fftw from scratch
-  --build_hdf5: builds hdf5 from scratch
-  --machine=<darwin|chicoma|linux|mac> (default: none)
-  --num_jobs=<number>: Number of jobs for 'make' (default: 1, on Mac use 1)
-  --help: Display this help message
-```
-
-To build EVPFFT you would need to provide both the `--heffte_build_type` and `--kokkos_build_type` options. The command below build EVPFFT using FFTW and Serial version of Kokkos:
-
-```
-source build_evpfft.sh --heffte_build_type=fftw --kokkos_build_type=serial
-```
-
-This will build EVPFFT in the folder `evpfft_{fftw}_{serial}`. The binary, `evpfft` is found in that folder.
-
-## Building EVPFFT without Anaconda
+## Building EVPFFT 
 Install HDF5 (MPI version) and FFTW (MPI version) with `sudo apt install` which will install the libraries in the default location. Then run the build script as above.
 
 If you would like to build HDF5 and FFTW from scratch then use `--build_hdf5` and `--build_fftw` options of the build script.
