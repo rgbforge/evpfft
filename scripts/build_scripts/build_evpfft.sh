@@ -9,8 +9,7 @@ show_help() {
     echo "Optional arguments:"
     echo "  --build_fftw: builds fftw from scratch"
     echo "  --build_hdf5: builds hdf5 from scratch"
-    echo "  --machine=<darwin|chicoma|linux|mac> (default: none)"
-    echo "  --num_jobs=<number>: Number of jobs for 'make' (default: 1, on Mac use 1)"
+    echo "  --num_jobs=<number>: Number of jobs for 'make' (default: 1)"
     echo "  --help: Display this help message"
     echo " "
     return 1
@@ -19,7 +18,6 @@ show_help() {
 # Initialize variables with default values
 heffte_build_type=""
 kokkos_build_type=""
-machine=""
 num_jobs=1
 build_fftw=0
 build_hdf5=0
@@ -27,7 +25,6 @@ build_hdf5=0
 # Define arrays of valid options
 valid_heffte_build_types=("fftw" "cufft" "rocfft")
 valid_kokkos_build_types=("serial" "openmp" "cuda" "cuda-ampere" "hip")
-valid_machines=("darwin" "chicoma" "linux" "mac")
 
 # Parse command line arguments
 for arg in "$@"; do
@@ -57,16 +54,6 @@ for arg in "$@"; do
             ;;
         --build_hdf5)
             build_hdf5=1
-            ;;
-        --machine=*)
-            option="${arg#*=}"
-            if [[ " ${valid_machines[*]} " == *" $option "* ]]; then
-                machine="$option"
-            else
-                echo "Error: Invalid --machine specified."
-                show_help
-                return 1
-            fi
             ;;
         --num_jobs=*)
             num_jobs="${arg#*=}"
@@ -109,12 +96,6 @@ PARENT_DIR=$(dirname $(dirname "${SCRIPT_DIR}"))
 # make lib directory to store all dependencies
 LIB_DIR="$PARENT_DIR/lib"
 mkdir -p "$LIB_DIR"
-
-# --------setup env for machine
-if [ -n "$machine" ]; then
-    MACHINE_SCRIPT="$PARENT_DIR/scripts/machines/${machine}-env.sh"
-    source  "$MACHINE_SCRIPT" --env_type=$kokkos_build_type
-fi
 
 # --------building heffte
 build_fftw_option=""
