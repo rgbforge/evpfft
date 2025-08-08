@@ -68,6 +68,8 @@ fi
 # Configure hdf5 using CMake
 cmake_options=(
     -D CMAKE_INSTALL_PREFIX="$HDF5_INSTALL_DIR"
+    -D CMAKE_C_COMPILER=mpicc
+    -D CMAKE_Fortran_COMPILER=mpif90
     -D CMAKE_BUILD_TYPE=Release
     -D HDF5_BUILD_FORTRAN=ON
     -D HDF5_ENABLE_PARALLEL=ON
